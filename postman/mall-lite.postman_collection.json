@@ -1,0 +1,424 @@
+{
+  "info": {
+    "_postman_id": "6dffda01-07e2-480c-a97a-bdf7c606e886",
+    "name": "mall-lite",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51718721",
+    "_collection_link": "https://go.postman.co/collection/51718721-6dffda01-07e2-480c-a97a-bdf7c606e886?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "用户认证",
+      "item": [
+        {
+          "name": "用户登录",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "\r",
+                  "if (res.data && res.data.token) {\r",
+                  "    pm.environment.set(\"token\", res.data.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"test004\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "获取当前用户",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/user/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "current"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "用户注册",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"123456\",\r\n  \"email\": \"admin@qq.com\",\r\n  \"phone\": \"13800000111\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "商品模块",
+      "item": [
+        {
+          "name": "商品分页查询",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product/page?current=1&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "product",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "current",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "商品详情查询",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/product/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "product",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "订单模块",
+      "item": [
+        {
+          "name": "新建订单",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"items\": [\r\n    {\r\n      \"productId\": 2,\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/order/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "我的订单",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/order/my/page?pageNum=1&pageSize=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "my",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "pageNum",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "订单详情",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/order/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "模拟支付",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/order/pay/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "pay",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "取消订单",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/order/cancel/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "cancel",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "管理员订单分页查询",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/order/admin/page?pageNum=1&pageSize=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "admin",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "pageNum",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "管理员发货",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/order/ship/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "ship",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "确认收货",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/order/complete/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "order",
+                "complete",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
