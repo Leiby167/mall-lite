@@ -102,6 +102,16 @@ CREATE TABLE order_event_log (
                                  KEY idx_event_type (event_type)
 ) COMMENT='订单事件日志表';
 
+CREATE TABLE order_event_log (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL COMMENT '订单ID',
+    event_type VARCHAR(50) NOT NULL COMMENT '事件类型',
+    event_content VARCHAR(500) DEFAULT NULL COMMENT '事件内容',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    KEY idx_order_id (order_id),
+    KEY idx_event_type (event_type)
+) COMMENT='订单事件日志表';
+
 INSERT INTO sys_role (id, role_name, role_key, status)
 VALUES
     (1, '管理员', 'admin', 1),
@@ -133,3 +143,4 @@ VALUES
     (1, '无线鼠标', 59.90, 100, 1),
     (2, '机械键盘', 199.00, 50, 1),
     (3, '保温杯', 39.90, 80, 1);
+  
