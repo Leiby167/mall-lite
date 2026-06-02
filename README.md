@@ -1,4 +1,4 @@
-# mall-lite-cloud 分布式商城微服务改造项目
+# mall-lite-cloud 商城微服务项目
 
 ## 1. 项目简介
 
@@ -272,8 +272,6 @@ mvnw.cmd clean compile -pl mall-order-service -am
 
 
 14. 项目说明
-
-本项目为学习和求职展示项目，重点体现：
 
 Spring Boot 后端开发能力
 MySQL、Redis、RabbitMQ 使用能力
